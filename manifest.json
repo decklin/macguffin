@@ -13,8 +13,7 @@
     }
   ],
   "page_action": {
-    "default_icon": "keyring.png",
-    "default_title": "Generate password"
+    "default_icon": "keyring.png"
   },
   "permissions": [
       "tabs"

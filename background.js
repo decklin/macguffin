@@ -10,8 +10,15 @@ function first8(str) {
 chrome.extension.onRequest.addListener(function(msg, src, send) {
     if (msg.pageAction) {
         chrome.pageAction[msg.pageAction](src.tab.id);
-    } else {
-        send(first8(b64hmac(msg.hostname, msg.secret)));
+    }
+    if (msg.title) {
+        chrome.pageAction.setTitle({
+            tabId: src.tab.id,
+            title: msg.title
+        });
+    }
+    if (msg.domain && msg.secret) {
+        send(first8(b64hmac(msg.domain, msg.secret)));
     }
 });
 
