@@ -8,5 +8,15 @@ function first8(str) {
 }
 
 chrome.extension.onRequest.addListener(function(msg, src, send) {
-    send(first8(b64hmac(msg.hostname, msg.secret)));
+    if (msg.pageAction) {
+        chrome.pageAction[msg.pageAction](src.tab.id);
+    } else {
+        send(first8(b64hmac(msg.hostname, msg.secret)));
+    }
+});
+
+chrome.pageAction.onClicked.addListener(function(tab) {
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.sendRequest(tab.id, {clicked: true});
+    });
 });

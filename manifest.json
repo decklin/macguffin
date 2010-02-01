@@ -12,6 +12,11 @@
       "run_at": "document_end"
     }
   ],
+  "page_action": {
+    "default_icon": "keyring.png",
+    "default_title": "Generate password"
+  },
   "permissions": [
+      "tabs"
   ]
 }

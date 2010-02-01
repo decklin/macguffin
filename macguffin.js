@@ -1,33 +1,33 @@
-var animLength = 250;
+var animLen = 250;
+var focused = null;
 
-// The extension callback is applied in global context, so we need to
-// keep a reference to the <input>.
+$('input[type="password"]').focus(function() {
+    focused = this;
+    chrome.extension.sendRequest({pageAction: 'show'});
+}).blur(function() {
+    focused = null;
+    chrome.extension.sendRequest({pageAction: 'hide'});
+});
 
-$('input[type="password"]').each(function(n, passwd) {
-    var hmacButton = $('<img>').attr(
-        'src', chrome.extension.getURL('keyring.png')
-    ).css({
-        verticalAlign: 'text-bottom'
-    }).click(function() {
+chrome.extension.onRequest.addListener(function(msg, src, send) {
+    if (focused && msg.clicked) {
+        var secretLen = focused.value.length;
+        var animStep = animLen / (secretLen + 8);
+        var queueSubstr = function(s, i) {
+            $(focused).delay(animStep).queue(function() {
+                $(this).val(s.substr(0, i + 1));
+                $(this).dequeue();
+            });
+        }
         var req = {
             hostname: location.hostname,
-            secret: passwd.value
+            secret: focused.value
         };
         chrome.extension.sendRequest(req, function(hmac) {
-            var secretLen = passwd.value.length;
-            var animStep = animLength / (passwd.value.length + 8);
-            var queueSubstr = function(s, i) {
-                $(passwd).delay(animStep).queue(function() {
-                    this.value = s.substr(0, i + 1);
-                    $(this).dequeue();
-                });
-            }
-            for (var i = passwd.value.length - 1; i > 0; i--)
-                queueSubstr(passwd.value, i);
+            for (var i = secretLen - 1; i > 0; i--)
+                queueSubstr(focused.value, i);
             for (var i = 0; i < 8; i++)
                 queueSubstr(hmac, i);
         });
-    });
-
-    $(this).after(hmacButton);
+    }
 });
