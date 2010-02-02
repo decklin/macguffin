@@ -3,6 +3,8 @@
   "version": "0.1",
   "description": "Generate passwords using standard, secure HMAC function",
   "icons": {
+    "32": "keyring-32.png",
+    "48": "keyring-48.png"
   },
   "background_page": "background.html",
   "content_scripts": [
@@ -13,7 +15,7 @@
     }
   ],
   "page_action": {
-    "default_icon": "keyring.png"
+    "default_icon": "keyring-19.png"
   },
   "permissions": [
       "tabs"
