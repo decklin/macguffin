@@ -1,6 +1,6 @@
 {
   "name": "MacGuffin",
-  "version": "0.1",
+  "version": "1.0",
   "description": "Generate passwords using standard, secure HMAC function",
   "icons": {
     "32": "keyring-32.png",
