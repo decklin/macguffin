@@ -15,7 +15,7 @@ def hmac_sha256(msg, key):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print >>sys.stderr, 'usage: macguffin HOSTNAME'
+        print >>sys.stderr, 'usage: macguffin DOMAIN'
         sys.exit(1)
 
     domain = sys.argv[1]
