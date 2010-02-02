@@ -1,0 +1,17 @@
+{
+  "name": "MacGuffin",
+  "version": "0.1",
+  "description": "Generate passwords using standard, secure HMAC function",
+  "icons": {
+  },
+  "background_page": "background.html",
+  "content_scripts": [
+    {
+      "js": [ "jquery/jquery-1.4.1.min.js", "macguffin.js" ],
+      "matches": [ "http://*/*", "https://*/*" ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+  ]
+}
