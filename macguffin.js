@@ -9,7 +9,7 @@ function domain(hostname) {
     return last(n, parts).join('.');
 }
 
-$('input[type="password"]').focus(function() {
+$('input[type="password"]').removeAttr('maxlength').focus(function() {
     focused = this;
     chrome.extension.sendRequest({
         pageAction: 'show',
